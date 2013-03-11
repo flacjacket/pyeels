@@ -15,7 +15,7 @@ class PyEELSApp(Application):
 
         #self.widget = self.widget_factory(config=self.config)
 
-        self.window = MainWindow(self.app)
+        self.window = MainWindow(self.app, self.data)
         self.window.init_main_frame()
         self.window.init_status_bar()
         self.window.init_menu_bar()

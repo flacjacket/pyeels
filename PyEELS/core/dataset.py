@@ -1,6 +1,6 @@
 # Local imports
 from PyEELS.utils.data_files import load_file
-class DataSet:
+class DataSet(object):
     def __init__(self):
         _data = {}
 

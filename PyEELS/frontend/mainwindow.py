@@ -5,9 +5,10 @@ from PyEELS.external.qt import QtGui, QtCore
 from PyEELS.frontend.plot_widget import PlotWidget
 
 class MainWindow(QtGui.QMainWindow):
-    def __init__(self, app, confirm_exit=True):
+    def __init__(self, app, data, confirm_exit=True):
         super(MainWindow, self).__init__()
         self._app = app
+        self.dataset = data
 
         self.series_list_model = QtGui.QStandardItemModel()
 
@@ -20,8 +21,12 @@ class MainWindow(QtGui.QMainWindow):
         self.series_list_view = QtGui.QListView()
         self.series_list_view.setModel(self.series_list_model)
 
+        self.load_button = QtGui.QPushButton("&Load")
+        self.connect(self.load_button, QtCore.SIGNAL('clicked()'), self.load_file)
+
         left_vbox = QtGui.QVBoxLayout()
         left_vbox.addWidget(self.series_list_view)
+        left_vbox.addWidget(self.load_button)
         left_vbox.addStretch(1)
 
         right_vbox = QtGui.QVBoxLayout()
@@ -40,3 +45,11 @@ class MainWindow(QtGui.QMainWindow):
 
     def init_menu_bar(self):
         pass
+
+    def load_file(self):
+        filename = QtGui.QFileDialog.getOpenFileName(self,
+                'Open a data file', '.', 'DAT files (*.dat);;All files (*.*)')
+
+        if filename:
+            self.dataset.load_data(str(filename))
+            print self.dataset._data
