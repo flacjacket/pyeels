@@ -1,8 +1,8 @@
 # System imports
 import os, tempfile
-from IPython.external.numpy import np
+from PyEELS.external.numpy import np
 
-def load_data(file_path):
+def load_file(file_path):
     file_path = os.path.expandvars(file_name)
     file_path = os.path.expanduser(file_name)
     file_path = os.path.normpath(file_name)
@@ -29,4 +29,4 @@ def _clean_file(file_path):
     return file_name_new
 
 def _extract_data(file_path):
-    return np.loadtxt(file, delimiter=' ', skiprows=2, usecols(2,3))
+    return np.loadtxt(file, delimiter=' ', skiprows=2, usecols=(2,3))

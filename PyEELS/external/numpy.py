@@ -1,4 +1,4 @@
 try:
     import numpy as np
-except:
+except ImportError:
     raise ImportError('Cannot import numpy')

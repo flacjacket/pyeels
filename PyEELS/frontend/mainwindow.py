@@ -28,8 +28,8 @@ class MainWindow(QtGui.QMainWindow):
         right_vbox.addWidget(self.plot)
 
         hbox = QtGui.QHBoxLayout()
-        hbox.addLayout(left_vbox, 3)
-        hbox.addLayout(right_vbox, 1)
+        hbox.addLayout(left_vbox, 1)
+        hbox.addLayout(right_vbox, 3)
 
         self.main_frame.setLayout(hbox)
 
