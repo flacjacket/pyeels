@@ -2,13 +2,14 @@
 from PyEELS.external.qt import QtCore, QtGui
 
 # Local import
+from PyEELS.core.application import Application
 from PyEELS.frontend.mainwindow import MainWindow
 
 #-----------------------------------------------------------------------------
 # Classes
 #-----------------------------------------------------------------------------
 
-class PyEELSApp:
+class PyEELSApp(Application):
     def init_qt_elements(self):
         self.app = QtGui.QApplication([])
 

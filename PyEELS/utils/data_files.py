@@ -12,7 +12,7 @@ def load_data(file_path):
 
     clean = _clean_file(file_path)
     data = _extract_data(file_path)
-    return data, os.path.basename(file_path)
+    return data, file_path
 
 def _clean_file(file_path):
     dir_name, file_name = os.path.split(file_path)

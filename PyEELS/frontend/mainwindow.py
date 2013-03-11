@@ -21,11 +21,11 @@ class MainWindow(QtGui.QMainWindow):
         self.series_list_view.setModel(self.series_list_model)
 
         left_vbox = QtGui.QVBoxLayout()
-        left_vbox.addWidget(self.plot)
+        left_vbox.addWidget(self.series_list_view)
+        left_vbox.addStretch(1)
 
         right_vbox = QtGui.QVBoxLayout()
-        right_vbox.addWidget(self.series_list_view)
-        right_vbox.addStretch(1)
+        right_vbox.addWidget(self.plot)
 
         hbox = QtGui.QHBoxLayout()
         hbox.addLayout(left_vbox, 3)
