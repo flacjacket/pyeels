@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+"""Launch PyEELS frontend
+"""
+
+from PyEELS.frontend.pyeelsapp import launch_new_instance
+
+launch_new_instance()
