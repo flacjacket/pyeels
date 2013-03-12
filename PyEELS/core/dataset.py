@@ -2,7 +2,7 @@
 from PyEELS.utils.data_files import load_file
 class DataSet(object):
     def __init__(self):
-        _data = {}
+        self._data = {}
 
     def load_data(self, file_name):
         data, name = load_file(file_name)
