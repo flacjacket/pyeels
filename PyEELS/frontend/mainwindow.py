@@ -43,6 +43,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.main_frame.setLayout(hbox)
 
+        self.resize(800, 600)
         self.setCentralWidget(self.main_frame)
 
     def init_status_bar(self):
@@ -66,3 +67,4 @@ class MainWindow(QtGui.QMainWindow):
         for i, name in enumerate(names):
             data = self.dataset.get_data(str(name))
             self.plot.addPlot(name, data, i)
+        self.plot.replot()
