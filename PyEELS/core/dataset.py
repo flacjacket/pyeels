@@ -7,7 +7,7 @@ class DataSet(object):
     def load_data(self, file_name):
         data, name = load_file(file_name)
         self._data[name] = data
-        print data
+        return name
 
     def get_data(self, name=None):
         pass

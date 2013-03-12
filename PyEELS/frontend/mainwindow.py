@@ -3,6 +3,7 @@ from PyEELS.external.qt import QtGui, QtCore
 
 # Local imports
 from PyEELS.frontend.plot_widget import PlotWidget
+from PyEELS.frontend.serieslist_widget import SeriesListWidget
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app, data, confirm_exit=True):
@@ -16,16 +17,13 @@ class MainWindow(QtGui.QMainWindow):
         self.main_frame = QtGui.QWidget()
 
         self.plot = PlotWidget()
-        #self.series_list = SeriesListWidget()
-
-        self.series_list_view = QtGui.QListView()
-        self.series_list_view.setModel(self.series_list_model)
+        self.series_list = SeriesListWidget(self.series_list_model)
 
         self.load_button = QtGui.QPushButton("&Load")
         self.connect(self.load_button, QtCore.SIGNAL('clicked()'), self.load_file)
 
         left_vbox = QtGui.QVBoxLayout()
-        left_vbox.addWidget(self.series_list_view)
+        left_vbox.addWidget(self.series_list)
         left_vbox.addWidget(self.load_button)
         left_vbox.addStretch(1)
 
@@ -51,5 +49,10 @@ class MainWindow(QtGui.QMainWindow):
                 'Open a data file', '.', 'DAT files (*.dat);;All files (*.*)')
 
         if filename:
-            self.dataset.load_data(str(filename))
-            print self.dataset._data
+            name = self.dataset.load_data(str(filename))
+
+            item = QtGui.QStandardItem(name)
+            item.setCheckState(QtCore.Qt.Unchecked)
+            item.setCheckable(True)
+            self.series_list_model.appendRow(item)
+            #self.series_list.add_series(name)
