@@ -49,6 +49,9 @@ class PlotWidget(Qwt.QwtPlot):
         self.picker.setRubberBandPen(QtGui.QPen(QtCore.Qt.green))
         self.picker.setEnabled(1)
 
+        self.setAxisTitle(Qwt.QwtPlot.xBottom, 'Energy Loss (meV)')
+        self.setAxisTitle(Qwt.QwtPlot.yLeft, 'Counts (Hz)')
+
         self._zoomStack = []
 
     def onMouseMoved(self, event):

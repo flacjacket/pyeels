@@ -19,12 +19,12 @@ class MainWindow(QtGui.QMainWindow):
         self.plot = PlotWidget()
 
         self.series_list = SeriesListWidget(self.series_list_model)
-        self.series_list.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
+        #self.series_list.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.connect(self.series_list.selectionModel(),
                 QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'),
                 self.update_plot)
 
-        self.load_button = QtGui.QPushButton("&Load")
+        self.load_button = QtGui.QPushButton('&Load')
         self.connect(self.load_button,
                 QtCore.SIGNAL('clicked()'),
                 self.load_file)
