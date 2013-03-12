@@ -1,6 +1,6 @@
 # System imports
 import os, tempfile
-from PyEELS.external.numpy import np
+from PyEELS.external.np import np
 
 def load_file(file_path):
     file_path = os.path.expandvars(file_path)
@@ -29,6 +29,4 @@ def _clean_file(file_path):
     return file_name_new
 
 def _extract_data(file_path):
-    print np
-    print np.loadtxt
-    return np.loadtxt(file, delimiter=' ', skiprows=2, usecols=(2,3))
+    return np.loadtxt(file_path, delimiter=' ', skiprows=2, usecols=(2,3))
