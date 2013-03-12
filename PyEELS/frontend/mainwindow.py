@@ -19,7 +19,7 @@ class MainWindow(QtGui.QMainWindow):
         self.plot = PlotWidget()
 
         self.series_list = SeriesListWidget(self.series_list_model)
-        #self.series_list.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
+        self.series_list.setFixedWidth(200)
         self.connect(self.series_list.selectionModel(),
                 QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'),
                 self.update_plot)
@@ -38,8 +38,8 @@ class MainWindow(QtGui.QMainWindow):
         right_vbox.addWidget(self.plot)
 
         hbox = QtGui.QHBoxLayout()
-        hbox.addLayout(left_vbox, 1)
-        hbox.addLayout(right_vbox, 3)
+        hbox.addLayout(left_vbox)
+        hbox.addLayout(right_vbox)
 
         self.main_frame.setLayout(hbox)
 
@@ -68,3 +68,15 @@ class MainWindow(QtGui.QMainWindow):
             data = self.dataset.get_data(str(name))
             self.plot.addPlot(name, data, i)
         self.plot.replot()
+
+
+class Spy(QtCore.QObject):
+    def __init__(self, parent):
+        super(Spy, self).__init__(self)
+        parent.setMouseTracking(True)
+        parent.installEventFilter(self)
+
+    def eventFilter(self, _, event):
+        if event.type() == QEvent.MouseMove:
+            self.emit(SIGNAL('MouseMove'), event.pos())
+        return False
