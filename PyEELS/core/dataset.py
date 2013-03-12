@@ -10,4 +10,5 @@ class DataSet(object):
         return name
 
     def get_data(self, name=None):
-        pass
+        if name in self._data:
+            return self._data[name]

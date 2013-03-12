@@ -17,10 +17,16 @@ class MainWindow(QtGui.QMainWindow):
         self.main_frame = QtGui.QWidget()
 
         self.plot = PlotWidget()
+
         self.series_list = SeriesListWidget(self.series_list_model)
+        self.connect(self.series_list.selectionModel(),
+                QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'),
+                self.update_plot)
 
         self.load_button = QtGui.QPushButton("&Load")
-        self.connect(self.load_button, QtCore.SIGNAL('clicked()'), self.load_file)
+        self.connect(self.load_button,
+                QtCore.SIGNAL('clicked()'),
+                self.load_file)
 
         left_vbox = QtGui.QVBoxLayout()
         left_vbox.addWidget(self.series_list)
@@ -50,9 +56,12 @@ class MainWindow(QtGui.QMainWindow):
 
         if filename:
             name = self.dataset.load_data(str(filename))
+            self.series_list.add_series(name)
 
-            item = QtGui.QStandardItem(name)
-            item.setCheckState(QtCore.Qt.Unchecked)
-            item.setCheckable(True)
-            self.series_list_model.appendRow(item)
-            #self.series_list.add_series(name)
+    def update_plot(self):
+        names = self.series_list.get_selected()
+        self.plot.clear()
+        for name in names:
+            data = self.dataset.get_data(str(name))
+            self.plot.addPlot(data)
+            

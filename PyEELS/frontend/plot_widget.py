@@ -86,3 +86,6 @@ class PlotWidget(Qwt.QwtPlot):
         xmin = self.canvasMap(axis).s1()
         xmax = self.canvasMap(axis).s2()
         return xmin, xmax
+
+    def addPlot(self, data):
+        print data
