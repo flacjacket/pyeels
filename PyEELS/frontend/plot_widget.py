@@ -87,5 +87,19 @@ class PlotWidget(Qwt.QwtPlot):
         xmax = self.canvasMap(axis).s2()
         return xmin, xmax
 
-    def addPlot(self, data):
-        print data
+    def addPlot(self, series, data):
+        color = QtGui.QColor('brown')
+
+        curve = Qwt.QwtPlotCurve(series)
+        pen = QtGui.QPen(color)
+        pen.setWidth(2)
+        curve.setPen(pen)
+        curve.setData(data[:,0], data[:,1])
+
+        #curve.setSymbol(Qwt.QwtSymbol(Qwt.QwtSymbol.Ellipse,
+        #    QtGui.QBrush(color),
+        #    pen,
+        #    QtGui.QSize(5,5)))
+
+        curve.attach(self)
+        self.replot()

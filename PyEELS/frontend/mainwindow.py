@@ -63,5 +63,5 @@ class MainWindow(QtGui.QMainWindow):
         self.plot.clear()
         for name in names:
             data = self.dataset.get_data(str(name))
-            self.plot.addPlot(data)
+            self.plot.addPlot(name, data)
             
