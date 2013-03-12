@@ -55,8 +55,8 @@ class PlotWidget(Qwt.QwtPlot):
 
             xmin = self.invTransform(Qwt.QwtPlot.xBottom, xmin0)
             xmax = self.invTransform(Qwt.QwtPlot.xBottom, xmax0)
-            ymin = self.invTransform(Qwt.QwtPlot.yLeft, ymin0)
-            ymax = self.invTransform(Qwt.QwtPlot.yLeft, ymax0)
+            ymin = self.invTransform(Qwt.QwtPlot.yLeft, ymax0)
+            ymax = self.invTransform(Qwt.QwtPlot.yLeft, ymin0)
 
             xmin_graph, xmax_graph = self.getAxisLimits(Qwt.QwtPlot.xBottom)
             ymin_graph, ymax_graph = self.getAxisLimits(Qwt.QwtPlot.yLeft)
@@ -95,11 +95,6 @@ class PlotWidget(Qwt.QwtPlot):
         pen.setWidth(2)
         curve.setPen(pen)
         curve.setData(data[:,0], data[:,1])
-
-        #curve.setSymbol(Qwt.QwtSymbol(Qwt.QwtSymbol.Ellipse,
-        #    QtGui.QBrush(color),
-        #    pen,
-        #    QtGui.QSize(5,5)))
 
         curve.attach(self)
         self.replot()
