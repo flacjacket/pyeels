@@ -19,6 +19,7 @@ class MainWindow(QtGui.QMainWindow):
         self.plot = PlotWidget()
 
         self.series_list = SeriesListWidget(self.series_list_model)
+        self.series_list.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.connect(self.series_list.selectionModel(),
                 QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'),
                 self.update_plot)
@@ -61,7 +62,7 @@ class MainWindow(QtGui.QMainWindow):
     def update_plot(self):
         names = self.series_list.get_selected()
         self.plot.clear()
-        for name in names:
+
+        for i, name in enumerate(names):
             data = self.dataset.get_data(str(name))
-            self.plot.addPlot(name, data)
-            
+            self.plot.addPlot(name, data, i)

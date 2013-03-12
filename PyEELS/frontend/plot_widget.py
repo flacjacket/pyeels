@@ -5,6 +5,21 @@ from PyEELS.external.qt import QtCore, QtGui
 # Local imports
 from PyEELS.frontend.picker import Picker
 
+_colors = [QtCore.Qt.blue,
+           QtCore.Qt.green,
+           QtCore.Qt.red,
+           QtCore.Qt.magenta,
+           QtCore.Qt.cyan,
+           QtCore.Qt.gray,
+           QtCore.Qt.yellow,
+           QtCore.Qt.darkBlue,
+           QtCore.Qt.darkGreen,
+           QtCore.Qt.darkRed,
+           QtCore.Qt.darkMagenta,
+           QtCore.Qt.darkCyan,
+           QtCore.Qt.darkGray,
+           QtCore.Qt.darkYellow]
+
 class PlotWidget(Qwt.QwtPlot):
     def __init__(self, *args):
         super(PlotWidget, self).__init__()
@@ -87,14 +102,19 @@ class PlotWidget(Qwt.QwtPlot):
         xmax = self.canvasMap(axis).s2()
         return xmin, xmax
 
-    def addPlot(self, series, data):
-        color = QtGui.QColor('brown')
+    def addPlot(self, series, data, index=0):
+        color = QtGui.QColor(_colors[index % len(_colors)])
 
         curve = Qwt.QwtPlotCurve(series)
         pen = QtGui.QPen(color)
         pen.setWidth(2)
         curve.setPen(pen)
         curve.setData(data[:,0], data[:,1])
+
+        curve.setSymbol(Qwt.QwtSymbol(Qwt.QwtSymbol.Ellipse,
+            QtGui.QBrush(color),
+            QtGui.QPen(color),
+            QtCore.QSize(5,5)))
 
         curve.attach(self)
         self.replot()
