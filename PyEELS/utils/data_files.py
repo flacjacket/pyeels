@@ -10,11 +10,11 @@ def load_file(file_path):
     if not os.path.exists(file_path):
         return
 
-    clean = _clean_file(file_path)
-    data = _extract_data(file_path)
-    return data, os.path.basename(file_path)
+    data = _read_file(file_path)
+    array = _extract_array(data)
+    return array, os.path.basename(file_path)
 
-def _clean_file(file_path):
+def _read_file(file_path):
     dir_name, file_name = os.path.split(file_path)
     file_root, file_ext = os.path.splitext(file_name)
     file_name_new = file_root + " clean" + file_ext
@@ -22,11 +22,9 @@ def _clean_file(file_path):
     os.chdir(dir_name)
 
     with open(file_name, 'rb') as fi:
-        data = fi.read()
-    with open(file_name_new, 'wb') as fo:
-        fo.write(data.replace('\x00', ''))
+        data = fi.read().replace('\x00', '')
+    return data
 
-    return file_name_new
-
-def _extract_data(file_path):
-    return np.loadtxt(file_path, delimiter=' ', skiprows=2, usecols=(2,3))
+def _extract_array(data):
+    import StringIO
+    return np.loadtxt(StringIO.StringIO(data), delimiter=' ', skiprows=2, usecols=(2,3))
