@@ -37,20 +37,30 @@ class MainWindow(QtGui.QMainWindow):
                 QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'),
                 self.update_plot)
 
-        self.load_button = QtGui.QPushButton('&Load')
-        self.connect(self.load_button,
+        load_button = QtGui.QPushButton('&Load')
+        self.connect(load_button,
                 QtCore.SIGNAL('clicked()'),
                 self.load_file)
 
+        clear_button = QtGui.QPushButton('&Clear')
+        self.connect(clear_button,
+                QtCore.SIGNAL('clicked()'),
+                self.clear_list)
+
+        seriesctl_hbox = QtGui.QHBoxLayout()
+        seriesctl_hbox.addWidget(load_button)
+        seriesctl_hbox.addWidget(clear_button)
+
         self.x_label = QtGui.QLabel('x = ')
         self.y_label = QtGui.QLabel('y = ')
+
         xy_vbox = QtGui.QVBoxLayout()
         xy_vbox.addWidget(self.x_label)
         xy_vbox.addWidget(self.y_label)
 
         left_vbox = QtGui.QVBoxLayout()
         left_vbox.addWidget(self.series_list)
-        left_vbox.addWidget(self.load_button)
+        left_vbox.addLayout(seriesctl_hbox)
         left_vbox.addStretch(1)
         left_vbox.addLayout(xy_vbox)
 
@@ -72,6 +82,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def init_menu_bar(self):
         pass
+
+    def clear_list(self):
+        self.series_list.clear()
 
     def load_file(self):
         filename = QtGui.QFileDialog.getOpenFileName(self,
