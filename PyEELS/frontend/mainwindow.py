@@ -22,6 +22,15 @@ class MainWindow(QtGui.QMainWindow):
                 QtCore.SIGNAL('MouseMove'),
                 self.update_coordinates)
 
+        linlog_button = QtGui.QPushButton('L&in/Log')
+        self.connect(linlog_button,
+                QtCore.SIGNAL('clicked()'),
+                self.plot.toggleLinLog)
+
+        plotctl_hbox = QtGui.QHBoxLayout()
+        plotctl_hbox.addWidget(linlog_button)
+        plotctl_hbox.addStretch(1)
+
         self.series_list = SeriesListWidget(self.series_list_model)
         self.series_list.setFixedWidth(200)
         self.connect(self.series_list.selectionModel(),
@@ -46,6 +55,7 @@ class MainWindow(QtGui.QMainWindow):
         left_vbox.addLayout(xy_vbox)
 
         right_vbox = QtGui.QVBoxLayout()
+        right_vbox.addLayout(plotctl_hbox)
         right_vbox.addWidget(self.plot)
 
         hbox = QtGui.QHBoxLayout()
