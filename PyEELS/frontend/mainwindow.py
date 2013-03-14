@@ -106,7 +106,7 @@ class MainWindow(QtGui.QMainWindow):
             action.setStatusTip(tip)
         return action
 
-    def print_action(self):
+    def print_plot(self):
         # Printing defaults
         printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
         printer.setPageSize(QtGui.QPrinter.Letter)
@@ -116,7 +116,7 @@ class MainWindow(QtGui.QMainWindow):
         if dialog.exec_() == QtGui.QDialogAccepted:
             self.plot.print_(dialog.printer())
 
-    def print_preview_action(self):
+    def print_preview_plot(self):
         # Printing defaults
         printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
         printer.setPageSize(QtGui.QPrinter.Letter)
