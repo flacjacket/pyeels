@@ -113,7 +113,7 @@ class MainWindow(QtGui.QMainWindow):
         printer.setOrientation(QtGui.QPrinter.Landscape)
 
         dialog = QtGui.QPrintDialog(printer)
-        if dialog.exec_() == QtGui.QDialogAccepted:
+        if dialog.exec_() == QtGui.QDialog.Accepted:
             self.plot.print_(dialog.printer())
 
     def print_preview_plot(self):
