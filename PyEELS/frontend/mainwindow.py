@@ -94,6 +94,18 @@ class MainWindow(QtGui.QMainWindow):
         self.file_menu.addSeparator()
         self.file_menu.addAction(quit_action)
 
+    def create_action(self, text, slot=None, shortcut=None, tip=None,
+            signal='triggered()'):
+        action = QAction(text, self)
+        if slot is not None:
+            self.connect(action, QtCore.SIGNAL(signal), slot)
+        if shortcut is not None:
+            action.setShortcut(shortcut)
+        if tip is not None:
+            action.setToolTip(tip)
+            action.setStatusTip(tip)
+        return action
+
     def print_action(self):
         # Printing defaults
         printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
