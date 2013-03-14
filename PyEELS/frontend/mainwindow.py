@@ -81,7 +81,38 @@ class MainWindow(QtGui.QMainWindow):
         pass
 
     def init_menu_bar(self):
-        pass
+        print_action = self.create_action('&Print',
+                shortcut='Ctrl+P', slot=self.print_plot, tip='Print displayed plot')
+        print_preview_action = self.create_action('Print preview',
+                slot=self.print_preview_plot, tip='Show print preview for displated plot')
+        quit_action = self.create_action('&Quit',
+                shortcut='Ctrl+Q', slot=self.close, tip='Quit application')
+
+        self.file_menu = self.menuBar().addMenu('&File')
+        self.file_menu.addAction(print_action)
+        self.file_menu.addAction(print_preview_action)
+        self.file_menu.addSeparator()
+        self.file_menu.addAction(quit_action)
+
+    def print_action(self):
+        # Printing defaults
+        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
+        printer.setPageSize(QtGui.QPrinter.Letter)
+        printer.setOrientation(QtGui.QPrinter.Landscape)
+
+        dialog = QtGui.QPrintDialog(printer)
+        if dialog.exec_() == QtGui.QDialogAccepted:
+            self.plot.print_(dialog.printer())
+
+    def print_preview_action(self):
+        # Printing defaults
+        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
+        printer.setPageSize(QtGui.QPrinter.Letter)
+        printer.setOrientation(QtGui.QPrinter.Landscape)
+
+        dialog = QtGui.QPrintPreviewDialog(printer)
+        dialog.paintRequested.connect(self.plot.print_)
+        dialog.exec_()
 
     def clear_list(self):
         self.series_list.clear()
