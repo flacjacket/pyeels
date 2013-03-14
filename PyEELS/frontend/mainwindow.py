@@ -96,7 +96,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def create_action(self, text, slot=None, shortcut=None, tip=None,
             signal='triggered()'):
-        action = QAction(text, self)
+        action = QtGui.QAction(text, self)
         if slot is not None:
             self.connect(action, QtCore.SIGNAL(signal), slot)
         if shortcut is not None:
