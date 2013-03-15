@@ -107,24 +107,22 @@ class MainWindow(QtGui.QMainWindow):
         return action
 
     def print_plot(self):
-        # Printing defaults
-        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
-        printer.setPageSize(QtGui.QPrinter.Letter)
-        printer.setOrientation(QtGui.QPrinter.Landscape)
-
+        printer = self._default_printer()
         dialog = QtGui.QPrintDialog(printer)
         if dialog.exec_() == QtGui.QDialog.Accepted:
             self.plot.print_(dialog.printer())
 
     def print_preview_plot(self):
-        # Printing defaults
-        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
-        printer.setPageSize(QtGui.QPrinter.Letter)
-        printer.setOrientation(QtGui.QPrinter.Landscape)
-
+        printer = self._default_printer()
         dialog = QtGui.QPrintPreviewDialog(printer)
         dialog.paintRequested.connect(self.plot.print_)
         dialog.exec_()
+
+    def _default_printer(self):
+        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
+        printer.setPageSize(QtGui.QPrinter.Letter)
+        printer.setOrientation(QtGui.QPrinter.Portrait)
+        return printer
 
     def clear_list(self):
         self.series_list.clear()
