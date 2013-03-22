@@ -21,14 +21,14 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(Spy(self.plot.canvas()),
                 QtCore.SIGNAL('MouseMove'),
                 self.update_coordinates)
-
-        linlog_button = QtGui.QPushButton('L&in/Log')
-        self.connect(linlog_button,
-                QtCore.SIGNAL('clicked()'),
+        
+        linlog_checkbox = QtGui.QCheckBox('L&og Scale')
+        self.connect(linlog_checkbox,
+                QtCore.SIGNAL('stateChanged(int)'),
                 self.plot.toggleLinLog)
 
         plotctl_hbox = QtGui.QHBoxLayout()
-        plotctl_hbox.addWidget(linlog_button)
+        plotctl_hbox.addWidget(linlog_checkbox)
         plotctl_hbox.addStretch(1)
 
         self.series_list = SeriesListWidget(self.series_list_model)

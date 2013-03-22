@@ -52,7 +52,6 @@ class PlotWidget(Qwt.QwtPlot):
         self.setAxisTitle(Qwt.QwtPlot.xBottom, 'Energy Loss (meV)')
         self.setAxisTitle(Qwt.QwtPlot.yLeft, 'Counts (Hz)')
 
-        self.__logy = 0
         self._zoomStack = []
 
 
@@ -132,11 +131,9 @@ class PlotWidget(Qwt.QwtPlot):
         xmax = self.canvasMap(axis).s2()
         return xmin, xmax
 
-    def toggleLinLog(self):
-        if self.__logy:
-            self.setAxisScaleEngine(Qwt.QwtPlot.yLeft, Qwt.QwtLinearScaleEngine())
-            self.__logy = 0
-        else:
+    def toggleLinLog(self, state):
+        if state:
             self.setAxisScaleEngine(Qwt.QwtPlot.yLeft, Qwt.QwtLog10ScaleEngine())
-            self.__logy = 1
+        else:
+            self.setAxisScaleEngine(Qwt.QwtPlot.yLeft, Qwt.QwtLinearScaleEngine())
         self.replot()
